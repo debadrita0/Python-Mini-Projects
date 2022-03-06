@@ -1,0 +1,34 @@
+#We are going to use two libraries for this project:
+#Speech Recognition
+#MoviePy
+
+pip install SpeechRecognition moviepy
+
+#SpeechRecognition module supports multiple recognition APIs, and Google Speech API is one of them.
+#MoviePy is a library that can read and write all the most common audio and video formats, including GIF.
+
+#import libraries.
+
+import speech_recognition as sr 
+import moviepy.editor as mp
+
+#export the video from your path
+clip = mp.VideoFileClip(r"C:\folder path\video1.mp4")
+
+#import folder for saving the audio file
+clip.audio.write_audiofile(r"C:\folder path\converted.wav")
+
+#speech recognition
+
+r = sr.Recognizer()
+audio = sr.AudioFile("C:\folder path\converted.wav")
+with audio as source:
+  audio_file = r.record(source)
+result = r.recognize_google(audio_file)
+
+# exporting the result 
+with open(r"C:\folder path\recognized.txt",mode ='w') as file: 
+   file.write("Recognized Speech:") 
+   file.write("\n") 
+   file.write(result) 
+   print("ready!")
